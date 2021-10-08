@@ -6,69 +6,53 @@ function App() {
 	var columns = ["#", "MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
 	var rows = ["09:00 - 09:45", "10:00 - 10:45", "11:00 - 11:45", "12:00 - 12:45", "13:30 - 14:15", "14:30 - 15:15", "15:30 - 16:15", "16:30 - 17:15"];
 	var data = [
-		{ name: "t", time: "10:00:00", day: "WED", location: "", X: -1, Y: -1 },
-		{ name: "ta", time: "10:00:00", day: "WED", location: "", X: -1, Y: -1 },
+		{ name: "Circuit", time: "09:00:00", day: "TUE", location: "", X: -1, Y: -1 },
+		{ name: "Circuit", time: "10:00:00", day: "TUE", location: "", X: -1, Y: -1 },
+		{ name: "Circuit", time: "11:00:00", day: "TUE", location: "", X: -1, Y: -1 },
+		{ name: "Signals and Systems", time: "09:00:00", day: "TUE", location: "", X: -1, Y: -1 },
+		{ name: "Signals and Systems", time: "10:00:00", day: "TUE", location: "", X: -1, Y: -1 },
+		{ name: "Signals and Systems", time: "11:00:00", day: "TUE", location: "", X: -1, Y: -1 },
+		{ name: "Software Engineering", time: "10:00:00", day: "TUE", location: "", X: -1, Y: -1 },
+		{ name: "Software Engineering", time: "11:00:00", day: "TUE", location: "", X: -1, Y: -1 },
+		{ name: "Software Engineering", time: "12:00:00", day: "TUE", location: "", X: -1, Y: -1 },
+		{ name: "Application Development for Mobile Devices", time: "13:30:00", day: "TUE", location: "", X: -1, Y: -1 },
+		{ name: "Application Development for Mobile Devices", time: "14:30:00", day: "TUE", location: "", X: -1, Y: -1 },
+		{ name: "Application Development for Mobile Devices", time: "15:30:00", day: "TUE", location: "", X: -1, Y: -1 },
+		{ name: "Introduction to Formal Language and Auto Theory", time: "09:00:00", day: "THU", location: "", X: -1, Y: -1 },
+		{ name: "Introduction to Formal Language and Auto Theory", time: "10:00:00", day: "THU", location: "", X: -1, Y: -1 },
+		{ name: "Introduction to Formal Language and Auto Theory", time: "11:00:00", day: "THU", location: "", X: -1, Y: -1 },
+		{ name: "Linear Algebra and Differantial Equations", time: "15:30:00", day: "THU", location: "", X: -1, Y: -1 },
+		{ name: "Linear Algebra and Differantial Equations", time: "16:30:00", day: "THU", location: "", X: -1, Y: -1 },
+		{ name: "Occupational Health and Safety", time: "15:30:00", day: "THU", location: "", X: -1, Y: -1 },
+		{ name: "Occupational Health and Safety", time: "16:30:00", day: "THU", location: "", X: -1, Y: -1 },
+		{ name: "Linear Algebra and Differantial Equations", time: "10:00:00", day: "FRI", location: "", X: -1, Y: -1 },
+		{ name: "Linear Algebra and Differantial Equations", time: "11:00:00", day: "FRI", location: "", X: -1, Y: -1 },
 	];
 
-	// calculateX(data);
-	// data.Y = calculateY(data);
-	data[0].Y = calculateY(data[0]);
-	data[0].X = calculateX(data[0]);
+	//Calculate x and y location
+	data.forEach((dat) => {
+		dat.X = calculateX(dat);
+		dat.Y = calculateY(dat);
+	});
 
-	data[1].Y = calculateY(data[1]);
-	data[1].X = calculateX(data[1]);
-
-	// console.log(data[0]);
-	// var str1 = "10:20:45",
-	// 	str2 = "05:10:10";
-
-	// if (str1 > str2) alert("Time 1 is later than time 2");
-	// else alert("Time 2 is later than time 1");
-	for (let j = 0; j < data.length; j++) {
-		const element = data[j];
-	}
-	// var tests = data.sort((a, b) => a.X - b.X);
-	// console.log(data.filter((f) => f.Y === 3));
-	// console.log(data);
-	// console.log(tests);
+	//Fill data with given x and y axis
 	var tds = [];
-
-	// let zzz = data.filter((f) => f.X == 3 && f.Y == 3);
-
-	// console.log(zzz);
-
 	for (let i = 1; i < 7; i++) {
 		tds.push([]);
 		for (let j = 0; j < 8; j++) {
 			let zzz = data.filter((f) => f.X === i && f.Y === j);
 			tds[i - 1].push(zzz);
-			// if (zzz.length > 0)
-
-			// 	zzz.forEach((d) => {
-			// 		tds[i - 1].push({ key: d.Y, d });
-			// 	});
-			// else tds[i - 1].push("---");
 		}
 	}
 
-	// for (let i = 1; i < 7; i++) {
-	// 	let tempX = data.filter((f) => f.X === i);
-	// 	let tempY = data.filter((f) => f.Y === i);
-	// 	if (tempX.length > 0)
-	// 		tempX.forEach((t) => {
-	// 			tds[0].push(<td>{t.name}</td>);
-	// 		});
-	// 	else tds[0].push(<td>--</td>);
-	// }
-	console.log(tds);
-	console.log(tds[2][1]);
-
+	//Convert data to usable way for table
 	var weekData = (x, id) => {
+		var multiple = tds[x][id].length > 1 ? true : false;
 		let res = "";
 		tds[x][id].forEach((element) => {
 			res += element.name + "\n";
 		});
-		return res;
+		return [res, multiple];
 	};
 
 	return (
@@ -86,42 +70,16 @@ function App() {
 						return (
 							<tr key={id}>
 								<td>{row}</td>
-								
-								<td>{weekData(0, id)}</td>
-								<td>{weekData(1, id)}</td>
 
-								<td>{weekData(2, id)}</td>
-								<td>{weekData(3, id)}</td>
-								<td>{weekData(4, id)}</td>
-								<td>{weekData(5, id)}</td>
+								<td className={weekData(0, id)[1] && "red"}>{weekData(0, id)[0]}</td>
+								<td className={weekData(1, id)[1] && "red"}>{weekData(1, id)[0]}</td>
+								<td className={weekData(2, id)[1] && "red"}>{weekData(2, id)[0]}</td>
+								<td className={weekData(3, id)[1] && "red"}>{weekData(3, id)[0]}</td>
+								<td className={weekData(4, id)[1] && "red"}>{weekData(4, id)[0]}</td>
+								<td className={weekData(5, id)[1] && "red"}>{weekData(5, id)[0]}</td>
 							</tr>
 						);
 					})}
-					<tr>
-						<td>1</td>
-						<td>Mark</td>
-						<td>Otto</td>
-						<td>@mdo</td>
-						<td>1</td>
-						<td>Mark</td>
-						<td>Otto</td>
-						<td>@mdo</td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td>Jacob</td>
-						<td>Thornton</td>
-						<td>@fat</td>
-						<td>2</td>
-						<td>Jacob</td>
-						<td>Thornton</td>
-						<td>@fat</td>
-					</tr>
-					{/* <tr>
-						<td>3</td>
-						<td colSpan="2">Larry the Bird</td>
-						<td>@twitter</td>
-					</tr> */}
 				</tbody>
 			</Table>
 		</div>

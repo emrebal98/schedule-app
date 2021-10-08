@@ -1,0 +1,9 @@
+td {
+	white-space: pre;
+	vertical-align: middle;
+}
+
+.red {
+	background-color: #de2651 !important;
+	color: white !important;
+}
